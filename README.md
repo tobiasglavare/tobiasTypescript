@@ -38,7 +38,8 @@ A structured 16-week plan to master TypeScript fundamentals and become a stronge
 - The `this` keyword and its quirks
 
 **Friday - Practice:**
-- Complete 5 exercises on [Exercism JavaScript track](https://exercism.org/tracks/javascript)
+- Complete exercises on [W3Resource JavaScript](https://www.w3resource.com/javascript-exercises/) (no account needed)
+- Try [GeeksforGeeks JavaScript Practice](https://www.geeksforgeeks.org/practice-javascript-online/) (no signup required)
 - Mini-project: Write a function that creates a counter with increment/decrement/reset using closures
 
 ```typescript
@@ -122,7 +123,7 @@ function validateConfig(server: ServerConfig, db: DatabaseConfig): boolean {
 - Typing arrays and tuples properly
 
 **Friday - Practice:**
-- Complete array-focused Exercism exercises
+- Complete array exercises on [W3Resource JavaScript Arrays](https://www.w3resource.com/javascript-exercises/javascript-array-exercises.php) (no account needed)
 - Mini-project: Build a data transformation pipeline
 
 ```typescript
@@ -718,10 +719,13 @@ class QueryBuilder<T> {
 - [Execute Program - TypeScript](https://www.executeprogram.com/courses/typescript)
 - [Total TypeScript](https://www.totaltypescript.com/) by Matt Pocock
 
-### Practice Platforms
-- [Exercism TypeScript Track](https://exercism.org/tracks/typescript)
-- [TypeScript Exercises](https://typescript-exercises.github.io/)
-- [Type Challenges](https://github.com/type-challenges/type-challenges)
+### Practice Platforms (No Account Required)
+- [TypeScript Exercises](https://typescript-exercises.github.io/) - interactive, no signup
+- [W3Resource TypeScript](https://www.w3resource.com/typescript-exercises/) - 100+ exercises with solutions
+- [W3Schools TypeScript](https://www.w3schools.com/typescript/typescript_exercises.php) - quick exercises
+- [Total TypeScript Tutorials](https://www.totaltypescript.com/tutorials) - free interactive tutorials
+- [Type Challenges](https://github.com/type-challenges/type-challenges) - advanced type puzzles on GitHub
+- [FoggyCode](https://foggycode.com/) - interactive TypeScript challenges
 
 ### YouTube Channels
 - Matt Pocock (TypeScript tips)
