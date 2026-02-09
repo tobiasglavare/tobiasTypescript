@@ -31,11 +31,21 @@ A structured 16-week plan to master TypeScript fundamentals and become a stronge
 
 ### Week 1: JavaScript Fundamentals
 
-**Tuesday - Theory:**
-- Variables: `let`, `const`, `var` and their scoping rules
-- Functions: declarations, expressions, arrow functions
-- Closures and lexical scope
-- The `this` keyword and its quirks
+**Tuesday - Theory (Essential Chapters):**
+
+From [JavaScript.info](https://javascript.info/):
+1. [Variables](https://javascript.info/variables) - `let`, `const`, `var`
+2. [Data types](https://javascript.info/types) - primitives and objects
+3. [Functions](https://javascript.info/function-basics) - declarations and expressions
+4. [Arrow functions](https://javascript.info/arrow-functions-basics) - concise syntax
+5. [Variable scope, closure](https://javascript.info/closure) - essential for JS mastery
+6. [The old "var"](https://javascript.info/var) - why we avoid it
+7. [Object basics](https://javascript.info/object) - working with objects
+
+Optional deep dives:
+- [Function expressions](https://javascript.info/function-expressions)
+- [The "this" keyword](https://javascript.info/object-methods) - tricky but important
+- [Constructor functions](https://javascript.info/constructor-new)
 
 **Friday - Practice:**
 - Complete exercises on [W3Resource JavaScript](https://www.w3resource.com/javascript-exercises/) (no account needed)
@@ -56,13 +66,10 @@ function createCounter(initial = 0) {
 ```
 
 **Resources:**
-- [JavaScript.info - Fundamentals](https://javascript.info/first-steps)
-- [JavaScript.info - Functions](https://javascript.info/function-basics)
-- [JavaScript.info - Closures](https://javascript.info/closure)
-- [MDN - Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
-- [MDN - Functions Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
 - 📺 [Fireship - 100 seconds of JavaScript](https://www.youtube.com/watch?v=DHjqpvDnNGE)
 - 📺 [Web Dev Simplified - Closures](https://www.youtube.com/watch?v=3a0I8ICR1Vg)
+- [MDN - Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
+- [MDN - Functions Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
 
 ---
 

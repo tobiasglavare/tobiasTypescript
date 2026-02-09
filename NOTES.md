@@ -12,6 +12,9 @@ Use this journal to track your TypeScript learning journey. Fill in each week as
 **What I learned:**
 
 
+
+
+
 **Challenges:**
 
 
@@ -30,6 +33,9 @@ Use this journal to track your TypeScript learning journey. Fill in each week as
 **Dates:**
 
 **What I learned:**
+Learned plenty about how Typescript differs from javascript. How running code in javascript can have typeErrors but still function.
+
+Different levels of strictness, strict: true enables them all. A bit more work but recommended. Others are noImplicitAny and strictNullChecks.
 
 
 **Challenges:**
