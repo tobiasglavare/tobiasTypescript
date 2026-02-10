@@ -31,21 +31,16 @@ A structured 16-week plan to master TypeScript fundamentals and become a stronge
 
 ### Week 1: JavaScript Fundamentals
 
-**Tuesday - Theory (Essential Chapters):**
+📖 **Full reference:** [docs/week-01-js-fundamentals.md](./docs/week-01-js-fundamentals.md)
 
-From [JavaScript.info](https://javascript.info/):
-1. [Variables](https://javascript.info/variables) - `let`, `const`, `var`
-2. [Data types](https://javascript.info/types) - primitives and objects
-3. [Functions](https://javascript.info/function-basics) - declarations and expressions
-4. [Arrow functions](https://javascript.info/arrow-functions-basics) - concise syntax
-5. [Variable scope, closure](https://javascript.info/closure) - essential for JS mastery
-6. [The old "var"](https://javascript.info/var) - why we avoid it
-7. [Object basics](https://javascript.info/object) - working with objects
-
-Optional deep dives:
-- [Function expressions](https://javascript.info/function-expressions)
-- [The "this" keyword](https://javascript.info/object-methods) - tricky but important
-- [Constructor functions](https://javascript.info/constructor-new)
+**Tuesday - Theory:**
+1. Variables: `let`, `const`, `var` and scoping
+2. Data types: primitives and objects
+3. Functions: declarations, expressions, arrow functions
+4. Scope: global, function, block, lexical
+5. Closures: the most important concept
+6. Objects: literals, destructuring, spread
+7. The `this` keyword (optional deep dive)
 
 **Friday - Practice:**
 - Complete exercises on [W3Resource JavaScript](https://www.w3resource.com/javascript-exercises/) (no account needed)
@@ -65,15 +60,17 @@ function createCounter(initial = 0) {
 }
 ```
 
-**Resources:**
+**Video Resources:**
 - 📺 [Fireship - 100 seconds of JavaScript](https://www.youtube.com/watch?v=DHjqpvDnNGE)
 - 📺 [Web Dev Simplified - Closures](https://www.youtube.com/watch?v=3a0I8ICR1Vg)
-- [MDN - Closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
-- [MDN - Functions Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions)
 
 ---
 
 ### Week 2: TypeScript Basics
+
+### Week 2: TypeScript Basics
+
+📖 **Full reference:** [docs/week-02-typescript-basics.md](./docs/week-02-typescript-basics.md)
 
 **Tuesday - Theory:**
 - Setting up a TypeScript project (`tsconfig.json`)
@@ -110,11 +107,7 @@ function validateConfig(server: ServerConfig, db: DatabaseConfig): boolean {
 }
 ```
 
-**Resources:**
-- [TypeScript Handbook - Basics](https://www.typescriptlang.org/docs/handbook/2/basic-types.html)
-- [TypeScript Handbook - Everyday Types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
-- [TypeScript Handbook - Object Types](https://www.typescriptlang.org/docs/handbook/2/objects.html)
-- [TypeScript Playground](https://www.typescriptlang.org/play) - experiment here!
+**Video Resources:**
 - 📺 [Fireship - TypeScript in 100 seconds](https://www.youtube.com/watch?v=zQnBQ4tB3ZA)
 - 📺 [Matt Pocock - Beginner TypeScript Tutorial](https://www.youtube.com/watch?v=p6dO9u0M7MQ)
 - 📺 [Jack Herrington - No BS TS Series](https://www.youtube.com/playlist?list=PLNqp92_EXZBJYFrpEzdO2EapvU0GOJ09n)
@@ -122,6 +115,8 @@ function validateConfig(server: ServerConfig, db: DatabaseConfig): boolean {
 ---
 
 ### Week 3: Arrays & Functional Methods
+
+📖 **Full reference:** [docs/week-03-arrays-functional.md](./docs/week-03-arrays-functional.md)
 
 **Tuesday - Theory:**
 - Array methods: `map`, `filter`, `reduce`, `find`, `some`, `every`
@@ -176,6 +171,8 @@ function costByTag(resources: Resource[], tagKey: string): Map<string, number> {
 
 ### Week 4: Async Programming
 
+📖 **Full reference:** [docs/week-04-async.md](./docs/week-04-async.md)
+
 **Tuesday - Theory:**
 - Callbacks and callback hell
 - Promises: creation, chaining, error handling
@@ -225,11 +222,7 @@ async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 }
 ```
 
-**Resources:**
-- [JavaScript.info - Promises](https://javascript.info/promise-basics)
-- [JavaScript.info - Async/Await](https://javascript.info/async-await)
-- [MDN - Using Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises)
-- [MDN - async/await](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises)
+**Video Resources:**
 - 📺 [Fireship - Async/Await in 100 seconds](https://www.youtube.com/watch?v=vn3tm0quoqE)
 - 📺 [Web Dev Simplified - JavaScript Promises](https://www.youtube.com/watch?v=DHvZLI7Db8E)
 - 📺 [Traversy Media - Async JS Crash Course](https://www.youtube.com/watch?v=PoRJizFvM7s)
@@ -239,6 +232,8 @@ async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 ## Phase 2: Intermediate Concepts (Weeks 5-8)
 
 ### Week 5: Generics
+
+📖 **Full reference:** [docs/week-05-generics.md](./docs/week-05-generics.md)
 
 **Tuesday - Theory:**
 - Generic functions and type parameters
@@ -283,10 +278,7 @@ interface StoreWithTTL<T> extends Store<T> {
 }
 ```
 
-**Resources:**
-- [TypeScript Handbook - Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
-- [TypeScript Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
-- [Total TypeScript - Generics Tutorial](https://www.totaltypescript.com/tutorials/beginners-typescript/generics)
+**Video Resources:**
 - 📺 [Matt Pocock - Generics for Beginners](https://www.youtube.com/watch?v=dLPgQRbVquo)
 - 📺 [Jack Herrington - TypeScript Generics](https://www.youtube.com/watch?v=nViEqpgwxHE)
 - 📺 [Web Dev Simplified - TypeScript Generics](https://www.youtube.com/watch?v=EcCTIExsqmI)
@@ -294,6 +286,8 @@ interface StoreWithTTL<T> extends Store<T> {
 ---
 
 ### Week 6: Advanced Types
+
+📖 **Full reference:** [docs/week-06-advanced-types.md](./docs/week-06-advanced-types.md)
 
 **Tuesday - Theory:**
 - Union and intersection types
@@ -339,11 +333,7 @@ function handleEvent(event: InfraEvent): string {
 }
 ```
 
-**Resources:**
-- [TypeScript Handbook - Narrowing](https://www.typescriptlang.org/docs/handbook/2/narrowing.html)
-- [TypeScript Handbook - Conditional Types](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html)
-- [TypeScript Handbook - Mapped Types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html)
-- [Total TypeScript - Type Guards](https://www.totaltypescript.com/tutorials/beginners-typescript/type-guards)
+**Video Resources:**
 - 📺 [Matt Pocock - Discriminated Unions](https://www.youtube.com/watch?v=6GRUqpG6Yks)
 - 📺 [Matt Pocock - Type Predicates](https://www.youtube.com/watch?v=wjMwQyqkqEM)
 - 📺 [Basarat - TypeScript Type Guards](https://www.youtube.com/watch?v=E5JwpxiSBTs)
@@ -351,6 +341,8 @@ function handleEvent(event: InfraEvent): string {
 ---
 
 ### Week 7: OOP & Classes
+
+📖 **Full reference:** [docs/week-07-oop-classes.md](./docs/week-07-oop-classes.md)
 
 **Tuesday - Theory:**
 - Classes in TypeScript
@@ -425,6 +417,8 @@ class EC2Instance extends Resource {
 
 ### Week 8: Error Handling & Modules
 
+📖 **Full reference:** [docs/week-08-errors-modules.md](./docs/week-08-errors-modules.md)
+
 **Tuesday - Theory:**
 - Error handling patterns in TypeScript
 - Custom error classes
@@ -477,11 +471,7 @@ async function deploy(
 // Challenge: Implement `map`, `flatMap`, and `unwrapOr` for Result type
 ```
 
-**Resources:**
-- [TypeScript Handbook - Modules](https://www.typescriptlang.org/docs/handbook/2/modules.html)
-- [JavaScript.info - Error Handling](https://javascript.info/error-handling)
-- [JavaScript.info - Modules](https://javascript.info/modules-intro)
-- [MDN - JavaScript Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+**Video Resources:**
 - 📺 [Web Dev Simplified - ES Modules](https://www.youtube.com/watch?v=cRHQNNcYf6s)
 - 📺 [Fireship - Modules in 100 seconds](https://www.youtube.com/watch?v=qgRUr-YUk1Q)
 - 📺 [Matt Pocock - Error Handling in TypeScript](https://www.youtube.com/watch?v=53gliDkXwaI)
@@ -491,6 +481,8 @@ async function deploy(
 ## Phase 3: Real-World Projects (Weeks 9-12)
 
 ### Weeks 9-10: Project - CLI Tool
+
+📖 **Full reference:** [docs/weeks-09-10-cli-project.md](./docs/weeks-09-10-cli-project.md)
 
 Build a complete CLI tool that solves a real problem. Suggested project: **Infrastructure Cost Reporter**
 
@@ -541,6 +533,8 @@ Build a complete CLI tool that solves a real problem. Suggested project: **Infra
 ---
 
 ### Weeks 11-12: Project - REST API Server
+
+📖 **Full reference:** [docs/weeks-11-12-api-project.md](./docs/weeks-11-12-api-project.md)
 
 Build a simple REST API. Suggested project: **Resource Inventory API**
 
@@ -596,6 +590,8 @@ Build a simple REST API. Suggested project: **Resource Inventory API**
 ## Phase 4: Advanced & Quality (Weeks 13-16)
 
 ### Weeks 13-14: Testing
+
+📖 **Full reference:** [docs/weeks-13-14-testing.md](./docs/weeks-13-14-testing.md)
 
 **Tuesday - Theory:**
 - Unit testing fundamentals
@@ -662,6 +658,8 @@ describe('API Client', () => {
 ---
 
 ### Weeks 15-16: Advanced Patterns
+
+📖 **Full reference:** [docs/weeks-15-16-advanced-patterns.md](./docs/weeks-15-16-advanced-patterns.md)
 
 **Topics to explore:**
 - Mapped types and template literal types
