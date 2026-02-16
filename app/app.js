@@ -265,9 +265,36 @@ function runCode() {
   const sandboxConsole = createSandboxConsole();
   
   try {
+    // Try to get the last expression's value by wrapping in eval-like behavior
+    // Split by statements and try to return the last one
+    const lines = jsCode.trim().split('\n');
+    const lastLine = lines[lines.length - 1].trim();
+    
+    // Check if last line is an expression (not a declaration/statement)
+    const isExpression = lastLine && 
+      !lastLine.startsWith('const ') && 
+      !lastLine.startsWith('let ') && 
+      !lastLine.startsWith('var ') &&
+      !lastLine.startsWith('function ') &&
+      !lastLine.startsWith('class ') &&
+      !lastLine.startsWith('if ') &&
+      !lastLine.startsWith('for ') &&
+      !lastLine.startsWith('while ') &&
+      !lastLine.startsWith('//') &&
+      !lastLine.startsWith('return ') &&
+      !lastLine.endsWith('{') &&
+      lastLine !== '}';
+    
+    let finalCode = jsCode;
+    if (isExpression && !lastLine.includes('console.')) {
+      // Wrap last expression to capture its value
+      const allButLast = lines.slice(0, -1).join('\n');
+      finalCode = `${allButLast}\nreturn (${lastLine.replace(/;$/, '')});`;
+    }
+    
     const sandbox = new Function('console', `
       "use strict";
-      ${jsCode}
+      ${finalCode}
     `);
     
     const result = sandbox(sandboxConsole);
@@ -276,7 +303,19 @@ function runCode() {
       appendOutput('result', '→', result);
     }
   } catch (error) {
-    appendOutput('error', 'Runtime Error:', error.message);
+    // If the expression wrapping failed, try running original code
+    try {
+      const sandbox = new Function('console', `
+        "use strict";
+        ${jsCode}
+      `);
+      const result = sandbox(sandboxConsole);
+      if (result !== undefined) {
+        appendOutput('result', '→', result);
+      }
+    } catch (innerError) {
+      appendOutput('error', 'Runtime Error:', innerError.message);
+    }
   }
 }
 

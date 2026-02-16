@@ -1,4 +1,4 @@
-# Week 3: Arrays & Functional Methods
+# Chapter 3: Arrays & Functional Methods
 
 This document covers array manipulation and functional programming patterns in JavaScript/TypeScript.
 

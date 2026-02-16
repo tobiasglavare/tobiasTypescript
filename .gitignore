@@ -1,0 +1,6 @@
+.vscode/
+.kiro/
+node_modules/
+dist/
+*.js.map
+.DS_Store

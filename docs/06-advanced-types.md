@@ -1,4 +1,4 @@
-# Week 6: Advanced Types
+# Chapter 6: Advanced Types
 
 This document covers union types, type guards, discriminated unions, and type narrowing.
 

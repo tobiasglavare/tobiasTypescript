@@ -1,4 +1,4 @@
-# Week 5: Generics
+# Chapter 5: Generics
 
 This document covers TypeScript generics — writing reusable, type-safe code.
 

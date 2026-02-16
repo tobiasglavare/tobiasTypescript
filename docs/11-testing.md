@@ -1,4 +1,4 @@
-# Weeks 13-14: Testing
+# Chapter 11: Testing
 
 This guide covers testing TypeScript code with Vitest.
 

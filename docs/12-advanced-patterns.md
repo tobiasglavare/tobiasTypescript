@@ -1,4 +1,4 @@
-# Weeks 15-16: Advanced Patterns
+# Chapter 12: Advanced Patterns
 
 This guide covers advanced TypeScript patterns and design patterns.
 

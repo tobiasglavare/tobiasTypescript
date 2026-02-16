@@ -1,4 +1,4 @@
-# Week 7: OOP & Classes
+# Chapter 7: OOP & Classes
 
 This document covers object-oriented programming in TypeScript — classes, inheritance, and access modifiers.
 

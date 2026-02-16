@@ -1,4 +1,4 @@
-# Week 1: JavaScript Fundamentals
+# Chapter 1: JavaScript Fundamentals
 
 This document covers the essential JavaScript concepts you need before diving into TypeScript.
 

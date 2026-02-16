@@ -1,4 +1,4 @@
-# Weeks 9-10: CLI Tool Project
+# Chapter 9: CLI Tool Project
 
 This guide helps you build a command-line tool in TypeScript.
 

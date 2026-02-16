@@ -1,4 +1,4 @@
-# Week 4: Async Programming
+# Chapter 4: Async Programming
 
 This document covers asynchronous JavaScript — callbacks, promises, and async/await.
 

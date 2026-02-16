@@ -1,18 +1,14 @@
 # Learning Notes & Reflections
 
-Use this journal to track your TypeScript learning journey. Fill in each week as you progress.
+Use this journal to track your TypeScript learning journey.
 
 ---
 
-## Phase 1: Foundations
+## Part 1: Foundations
 
-### Week 1 - JavaScript Fundamentals
-**Dates:**
+### Chapter 1 - JavaScript Fundamentals
 
 **What I learned:**
-
-
-
 
 
 **Challenges:**
@@ -29,8 +25,7 @@ Use this journal to track your TypeScript learning journey. Fill in each week as
 
 ---
 
-### Week 2 - TypeScript Basics
-**Dates:**
+### Chapter 2 - TypeScript Basics
 
 **What I learned:**
 Learned plenty about how Typescript differs from javascript. How running code in javascript can have typeErrors but still function.
@@ -52,8 +47,7 @@ Different levels of strictness, strict: true enables them all. A bit more work b
 
 ---
 
-### Week 3 - Arrays & Functional Methods
-**Dates:**
+### Chapter 3 - Arrays & Functional Methods
 
 **What I learned:**
 
@@ -72,8 +66,7 @@ Different levels of strictness, strict: true enables them all. A bit more work b
 
 ---
 
-### Week 4 - Async Programming
-**Dates:**
+### Chapter 4 - Async Programming
 
 **What I learned:**
 
@@ -92,30 +85,9 @@ Different levels of strictness, strict: true enables them all. A bit more work b
 
 ---
 
-## Phase 2: Intermediate Concepts
+## Part 2: Intermediate Concepts
 
-### Week 5 - Generics
-**Dates:**
-
-**What I learned:**
-
-
-**Challenges:**
-
-
-**Questions to explore:**
-
-
-**Code snippets or examples I want to remember:**
-
-```typescript
-
-```
-
----
-
-### Week 6 - Advanced Types
-**Dates:**
+### Chapter 5 - Generics
 
 **What I learned:**
 
@@ -134,8 +106,7 @@ Different levels of strictness, strict: true enables them all. A bit more work b
 
 ---
 
-### Week 7 - OOP & Classes
-**Dates:**
+### Chapter 6 - Advanced Types
 
 **What I learned:**
 
@@ -154,8 +125,7 @@ Different levels of strictness, strict: true enables them all. A bit more work b
 
 ---
 
-### Week 8 - Error Handling & Modules
-**Dates:**
+### Chapter 7 - OOP & Classes
 
 **What I learned:**
 
@@ -174,10 +144,28 @@ Different levels of strictness, strict: true enables them all. A bit more work b
 
 ---
 
-## Phase 3: Real-World Projects
+### Chapter 8 - Error Handling & Modules
 
-### Weeks 9-10 - CLI Tool Project
-**Dates:**
+**What I learned:**
+
+
+**Challenges:**
+
+
+**Questions to explore:**
+
+
+**Code snippets or examples I want to remember:**
+
+```typescript
+
+```
+
+---
+
+## Part 3: Projects
+
+### Chapter 9 - CLI Tool Project
 
 **Project name/description:**
 
@@ -198,8 +186,7 @@ Different levels of strictness, strict: true enables them all. A bit more work b
 
 ---
 
-### Weeks 11-12 - API Server Project
-**Dates:**
+### Chapter 10 - API Server Project
 
 **Project name/description:**
 
@@ -220,10 +207,9 @@ Different levels of strictness, strict: true enables them all. A bit more work b
 
 ---
 
-## Phase 4: Advanced & Quality
+## Part 4: Quality & Advanced
 
-### Weeks 13-14 - Testing
-**Dates:**
+### Chapter 11 - Testing
 
 **What I learned:**
 
@@ -242,8 +228,7 @@ Different levels of strictness, strict: true enables them all. A bit more work b
 
 ---
 
-### Weeks 15-16 - Advanced Patterns
-**Dates:**
+### Chapter 12 - Advanced Patterns
 
 **What I learned:**
 

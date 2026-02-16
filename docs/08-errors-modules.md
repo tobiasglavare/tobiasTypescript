@@ -1,4 +1,4 @@
-# Week 8: Error Handling & Modules
+# Chapter 8: Error Handling & Modules
 
 This document covers error handling patterns and module organization in TypeScript.
 

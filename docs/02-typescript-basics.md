@@ -1,4 +1,4 @@
-# Week 2: TypeScript Basics
+# Chapter 2: TypeScript Basics
 
 This document covers TypeScript fundamentals — types, interfaces, and how to set up a project.
 
