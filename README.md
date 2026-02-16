@@ -352,6 +352,65 @@ Build a REST API. Suggested: **Resource Inventory API**
 
 ## Additional Resources
 
+### Exercism Exercises by Chapter
+
+The [Exercism TypeScript track](https://exercism.org/tracks/typescript) has ~100 exercises. Here are recommended ones for each chapter:
+
+**Chapter 1-2: Fundamentals & Basics**
+- `hello-world` - Setup and workflow intro
+- `two-fer` - String interpolation, default params
+- `resistor-color` - Arrays, indexOf
+- `resistor-color-duo` - Array manipulation
+- `rna-transcription` - String mapping
+- `leap` - Boolean logic, conditionals
+
+**Chapter 3: Arrays & Functional**
+- `resistor-color-trio` - Array methods
+- `acronym` - map, join, string methods
+- `isogram` - filter, Set
+- `pangram` - every, some
+- `bob` - String analysis
+- `difference-of-squares` - reduce
+- `sum-of-multiples` - filter, reduce
+- `flatten-array` - Recursion, flat
+
+**Chapter 4: Async**
+- `promises` - Promise basics (if available)
+- Practice async patterns with your own mini-projects
+
+**Chapter 5: Generics**
+- `linked-list` - Generic data structure
+- `simple-linked-list` - Generic list
+- `list-ops` - Generic list operations (map, filter, reduce)
+- `binary-search-tree` - Generic tree
+
+**Chapter 6: Advanced Types**
+- `grade-school` - Record types, sorting
+- `robot-name` - State management
+- `clock` - Value objects, equality
+- `complex-numbers` - Custom types
+
+**Chapter 7: OOP & Classes**
+- `robot-simulator` - Classes, state
+- `bank-account` - Encapsulation
+- `circular-buffer` - Class with generics
+- `simple-cipher` - Class methods
+
+**Chapter 8: Error Handling**
+- `grains` - Error throwing
+- `queen-attack` - Validation, errors
+- `bowling` - Complex validation
+- `error-handling` - Try/catch patterns
+
+**Difficulty progression:**
+- Easy (1-3): hello-world, two-fer, resistor-color, leap
+- Medium (4-6): acronym, isogram, clock, robot-simulator
+- Hard (7-10): linked-list, bowling, binary-search-tree
+
+Start with `hello-world`, then pick 2-3 exercises per chapter that interest you.
+
+---
+
 ### Books
 - "Programming TypeScript" by Boris Cherny
 - "Effective TypeScript" by Dan Vanderkam
