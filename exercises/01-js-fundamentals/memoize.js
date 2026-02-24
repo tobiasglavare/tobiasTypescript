@@ -1,4 +1,4 @@
-function memorize(fn) {
+function memoize(fn) {
     const cache = {};
 
     return function(x) {
@@ -13,7 +13,7 @@ function memorize(fn) {
     };
 }
 
-const square = memorize((n) => n * n);
+const square = memoize((n) => n * n);
 square(4);
 square(4);
 square(5);
