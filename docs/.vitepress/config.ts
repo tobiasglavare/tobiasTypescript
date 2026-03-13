@@ -12,6 +12,7 @@ export default defineConfig({
     sidebar: [
       {
         text: 'Part 1: Foundations',
+        collapsed: false,
         items: [
           { text: '1. JS Fundamentals', link: '/01-js-fundamentals' },
           { text: '2. TypeScript Basics', link: '/02-typescript-basics' },
@@ -21,6 +22,7 @@ export default defineConfig({
       },
       {
         text: 'Part 2: Intermediate',
+        collapsed: false,
         items: [
           { text: '5. Generics', link: '/05-generics' },
           { text: '6. Advanced Types', link: '/06-advanced-types' },
@@ -30,6 +32,7 @@ export default defineConfig({
       },
       {
         text: 'Part 3: Projects',
+        collapsed: false,
         items: [
           { text: '9. CLI Tool', link: '/09-cli-project' },
           { text: '10. API Server', link: '/10-api-project' },
@@ -37,6 +40,7 @@ export default defineConfig({
       },
       {
         text: 'Part 4: Quality & Advanced',
+        collapsed: false,
         items: [
           { text: '11. Testing', link: '/11-testing' },
           { text: '12. Advanced Patterns', link: '/12-advanced-patterns' },
