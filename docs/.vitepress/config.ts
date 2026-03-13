@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  base: '/tobiasTypescript/',
   title: 'TypeScript Learning Journey',
   description: 'A structured plan to master TypeScript',
   themeConfig: {
