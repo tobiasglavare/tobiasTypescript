@@ -37,8 +37,16 @@ type Shape =
   | { type: "triangle"; base: number; height: number };
 
 function describeShape(shape: Shape): string {
-    // Use a switch statement on shape.type
-    // Your code here
+  switch (shape.type) {
+    case "circle":
+      return `Circle with area ${(Math.PI * shape.radius ** 2).toFixed(2)}`
+    
+    case "rectangle":
+      return `Rectangle with area ${(shape.width * shape.height).toFixed(2)}`
+    
+    case "triangle":
+      return `Triangle with area ${((shape.base * shape.height)/2).toFixed(2)}`
+  }
 }
 
 // Task 2: Handle result
@@ -53,7 +61,11 @@ type Result<T> =
   | { status: "error"; error: string };
 
 function handleResult<T>(result: Result<T>): T {
-    // Your code here
+  if (result.status === "success") {
+    return result.data
+  } else {
+    throw new Error(result.error)
+  }
 }
 
 // Task 3: Process deployment action
@@ -72,7 +84,16 @@ type DeployAction =
   | { action: "scale"; service: string; replicas: number };
 
 function processAction(action: DeployAction): string {
-    // Your code here
+  switch (action.action) {
+    case "deploy":
+      return `Deploying ${action.service} version ${action.version}`
+
+    case "rollback":
+      return `Rolling back ${action.service} to ${action.previousVersion}`
+    
+    case "scale":
+      return `Scaling ${action.service} to ${action.replicas} replicas`
+  }
 }
 
 // Test your implementations:

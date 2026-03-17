@@ -19,3 +19,5 @@ features:
   - title: 🚀 Real Projects
     details: Build a CLI tool, API server, and more
 ---
+
+<ProgressTracker />

@@ -17,8 +17,13 @@
 // Example: describeValue(42) returns "Number: 42"
 // Example: describeValue(true) returns "Boolean: true"
 function describeValue(value: string | number | boolean): string {
-    // Use typeof to check the type and return the right description
-    // Your code here
+    if (typeof value === "string") {
+        return `Text: ${value}`
+    } else if (typeof value === "number") {
+        return `Number: ${value}`
+    } else {
+        return `Boolean: ${value}`
+    }
 }
 
 // Task 2: Format input
@@ -30,8 +35,11 @@ function describeValue(value: string | number | boolean): string {
 // Example: formatInput(3.14159) returns "3.14"
 // Example: formatInput(42) returns "42.00"
 function formatInput(input: string | number): string {
-    if 
-    // Your code here
+    if (typeof input === "string") {
+        return input.toUpperCase()
+    } else {
+        return input.toFixed(2)
+    }
 }
 
 // Task 3: Process date
@@ -41,7 +49,11 @@ function formatInput(input: string | number): string {
 // Example: processDate(new Date("2024-01-01")) returns "2024-01-01T00:00:00.000Z"
 // Example: processDate("2024-01-01") returns "2024-01-01T00:00:00.000Z"
 function processDate(date: Date | string): string {
-    // Your code here
+    if (date instanceof Date) {
+        return date.toISOString();
+    } else {
+        return new Date(date).toISOString();
+    }
 }
 
 // Task 4: Describe animal
@@ -62,8 +74,13 @@ type Dog = { name: string; bark: () => string };
 type Animal = Fish | Bird | Dog;
 
 function describeAnimal(animal: Animal): string {
-    // Use "in" to check which property exists
-    // Your code here
+    if ("swim" in animal) {
+        return `${animal.name} can swim`
+    } else if ("fly" in animal) {
+        return `${animal.name} can fly`
+    }else {
+        return `${animal.name} can bark`
+    }
 }
 
 // Test your implementations:
