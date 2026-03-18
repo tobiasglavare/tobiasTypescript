@@ -31,6 +31,7 @@ function isString(value: unknown): value is string {
 // Example: isNonEmptyArray([]) returns false
 // Example: isNonEmptyArray("hello") returns false
 function isNonEmptyArray<T>(value: unknown): value is T[] {
+    return Array.isArray(value) && value.length > 0;
     // Your code here
 }
 
