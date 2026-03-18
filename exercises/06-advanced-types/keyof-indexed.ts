@@ -23,7 +23,7 @@
 //   pluck(servers, "missing") should NOT compile
 function pluck<T, K extends keyof T>(items: T[], key: K): T[K][] {
     // Hint: use .map() to extract the property from each item
-    // Your code here
+    return items.map(item => item[key])
 }
 
 // Task 2: Pick (manual implementation)
@@ -36,7 +36,10 @@ function pluck<T, K extends keyof T>(items: T[], key: K): T[K][] {
 //
 // Hint: Create an empty object, loop through the keys, copy each property
 function pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
-    // Your code here
+    const picked = {} as Pick<T, K>;
+    for (const k of keys){
+    }
+    return picked
 }
 
 // Task 3: Indexed access types
