@@ -2,3 +2,27 @@
   height: 48px !important;
   width: 48px !important;
 }
+
+.VPHero .name .clip {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+:root {
+  --vp-c-brand-1: #8b5cf6;
+  --vp-c-brand-2: #a78bfa;
+  --vp-c-brand-3: #7c3aed;
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+}
+
+.VPButton.brand {
+  background-color: #8b5cf6 !important;
+  border-color: #8b5cf6 !important;
+}
+
+.VPButton.brand:hover {
+  background-color: #7c3aed !important;
+  border-color: #7c3aed !important;
+}
