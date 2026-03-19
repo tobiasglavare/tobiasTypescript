@@ -75,7 +75,7 @@ const percent = (ch) => ch.total === 0 ? 0 : Math.round((ch.done / ch.total) * 1
 
 .overall-bar {
   height: 100%;
-  background: linear-gradient(90deg, #e9d5ff, #a78bfa, #8b5cf6);
+  background: #8b5cf6;
   border-radius: 15px;
   transition: width 0.6s ease;
 }
@@ -142,11 +142,11 @@ const percent = (ch) => ch.total === 0 ? 0 : Math.round((ch.done / ch.total) * 1
 }
 
 .bar-fill.complete {
-  background: linear-gradient(90deg, #a78bfa, #8b5cf6);
+  background: #8b5cf6;
 }
 
 .bar-fill.active {
-  background: linear-gradient(90deg, #e9d5ff, #a78bfa);
+  background: #a78bfa;
   animation: shimmer 2s infinite;
 }
 
