@@ -6,7 +6,7 @@ const chapters = [
   { num: 4, name: 'Async Programming', done: 4, total: 4 },
   { num: 5, name: 'Generics', done: 2, total: 2 },
   { num: 6, name: 'Advanced Types', done: 4, total: 4 },
-  { num: 7, name: 'OOP & Classes', done: 0, total: 4 },
+  { num: 7, name: 'OOP & Classes', done: 1, total: 4 },
   { num: 8, name: 'Errors & Modules', done: 0, total: 0 },
   { num: 9, name: 'CLI Tool', done: 0, total: 1 },
   { num: 10, name: 'API Server', done: 0, total: 1 },

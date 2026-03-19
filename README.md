@@ -16,7 +16,7 @@ A structured plan to master TypeScript fundamentals and become a stronger develo
 | 4 | Async Programming | ✅ |
 | 5 | Generics | ✅ |
 | 6 | Advanced Types | ✅ |
-| 7 | OOP & Classes | ⬜ |
+| 7 | OOP & Classes | 🔄 |
 | 8 | Error Handling & Modules | ⬜ |
 | 9 | Project: CLI Tool | ⬜ |
 | 10 | Project: API Server | ⬜ |
