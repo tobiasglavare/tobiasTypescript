@@ -2,6 +2,7 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   base: '/typescript-journey/',
+  srcExclude: ['notes.md'],
   title: 'TypeScript Learning Journey',
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/typescript-journey/favicon.svg' }]
