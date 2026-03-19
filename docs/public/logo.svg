@@ -1,37 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 180">
-  <g fill="#3178c6">
-    <!-- Cape left -->
-    <path d="M40 65 Q50 55 65 60 L75 70 L75 145 Q60 150 45 140 L30 150 Q25 120 30 90 Z"/>
-    <!-- Cape right -->
-    <path d="M160 65 Q150 55 135 60 L125 70 L125 145 Q140 150 155 140 L170 150 Q175 120 170 90 Z"/>
-    <!-- Cape collar left -->
-    <path d="M65 58 Q75 40 85 55 L85 70 L75 70 Z"/>
-    <!-- Cape collar right -->
-    <path d="M135 58 Q125 40 115 55 L115 70 L125 70 Z"/>
-    <!-- Body -->
-    <rect x="75" y="60" width="50" height="90" rx="3"/>
-    <!-- Head -->
-    <circle cx="100" cy="42" r="22"/>
-    <!-- Hair peaks -->
-    <path d="M78 32 Q82 18 90 28 L88 35 Z"/>
-    <path d="M122 32 Q118 18 110 28 L112 35 Z"/>
-    <!-- Widow's peak -->
-    <path d="M88 28 Q100 38 112 28 Q100 22 88 28"/>
-  </g>
-  <!-- Face details -->
-  <g fill="#1a1a2e">
-    <!-- Eyes -->
-    <ellipse cx="91" cy="40" rx="4" ry="3"/>
-    <ellipse cx="109" cy="40" rx="4" ry="3"/>
-    <!-- Eye glow -->
-    <ellipse cx="91" cy="40" rx="2" ry="1.5" fill="#ff4444" opacity="0.7"/>
-    <ellipse cx="109" cy="40" rx="2" ry="1.5" fill="#ff4444" opacity="0.7"/>
-    <!-- Mouth with fangs -->
-    <path d="M93 50 Q100 54 107 50" stroke="#1a1a2e" stroke-width="1.5" fill="none"/>
-    <!-- Fangs -->
-    <path d="M94 50 L96 56 L98 50" fill="white"/>
-    <path d="M102 50 L104 56 L106 50" fill="white"/>
-  </g>
-  <!-- TS text -->
-  <text x="100" y="174" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="22" fill="#3178c6" letter-spacing="2">TS JOURNEY</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- Ghost body -->
+  <path d="M100 20 C55 20 30 60 30 105 L30 160 L50 145 L70 160 L90 145 L110 160 L130 145 L150 160 L170 145 L170 105 C170 60 145 20 100 20 Z" fill="#8b5cf6"/>
+  <!-- Ghost body highlight -->
+  <path d="M100 20 C70 20 50 50 50 90 C50 60 75 30 100 30 C125 30 145 55 145 90 C145 50 130 20 100 20 Z" fill="#a78bfa" opacity="0.5"/>
+  <!-- Left eye -->
+  <ellipse cx="78" cy="85" rx="16" ry="18" fill="white"/>
+  <ellipse cx="82" cy="88" rx="9" ry="10" fill="#1a1a2e"/>
+  <circle cx="85" cy="85" r="3" fill="white"/>
+  <!-- Right eye -->
+  <ellipse cx="122" cy="85" rx="16" ry="18" fill="white"/>
+  <ellipse cx="126" cy="88" rx="9" ry="10" fill="#1a1a2e"/>
+  <circle cx="129" cy="85" r="3" fill="white"/>
+  <!-- Mouth -->
+  <path d="M88 115 Q100 125 112 115" stroke="#6d28d9" stroke-width="3" fill="none" stroke-linecap="round"/>
 </svg>
