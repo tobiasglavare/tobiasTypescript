@@ -1,12 +1,12 @@
 # Chapter 4: Async Programming
 
-This document covers asynchronous JavaScript — callbacks, promises, and async/await.
+This document covers asynchronous JavaScript — callbacks, promises, and async/await. Understanding async is essential because almost every real application needs to talk to the outside world — APIs, databases, file systems — and all of those operations take time. Without async, your program would freeze while waiting.
 
 ---
 
 ## 1. Why Async?
 
-JavaScript is single-threaded. Async operations prevent blocking:
+JavaScript runs on a single thread, meaning it can only do one thing at a time. If you make a network request that takes 2 seconds and just wait for it synchronously, nothing else can happen — no UI updates, no other requests, nothing. Async lets your code say "start this operation, and I'll come back to handle the result when it's ready" while continuing to do other work:
 
 ```typescript
 // ❌ If this were synchronous, the UI would freeze
@@ -31,7 +31,7 @@ Common async operations:
 
 ## 2. Callbacks
 
-The original async pattern — pass a function to be called later:
+Callbacks were the first way JavaScript handled async operations. The idea is simple: pass a function as an argument, and it gets called when the operation finishes. You'll still see this pattern in older Node.js APIs and event handlers, so it's worth understanding even though we have better tools now:
 
 ```typescript
 // setTimeout callback
@@ -60,7 +60,7 @@ readFile("config.json", (err, data) => {
 
 ### Callback Hell
 
-Nested callbacks become unreadable:
+The big problem with callbacks is that async operations often depend on each other — you need the user before you can get their orders, and you need the order before you can get its details. This leads to deeply nested code that's hard to read, hard to debug, and hard to handle errors in:
 
 ```typescript
 // ❌ Callback hell
@@ -82,9 +82,9 @@ This is why Promises were invented.
 
 ## 3. Promises
 
-A Promise represents a future value. It can be:
+Promises were introduced to solve callback hell. Instead of nesting callbacks, a Promise is an object that represents a value that doesn't exist yet but will (or won't) in the future. This lets you chain operations in a flat, readable way and handle errors in one place. A Promise can be in one of three states:
 - **Pending**: Operation in progress
-- **Fulfilled**: Completed successfully
+- **Fulfilled**: Completed successfully with a value
 - **Rejected**: Failed with an error
 
 
@@ -154,7 +154,7 @@ getUser(1)
 
 ## 4. async/await
 
-Syntactic sugar over Promises — makes async code look synchronous:
+Even with Promises, chaining `.then()` calls can get verbose. `async/await` is syntactic sugar that lets you write async code that looks and reads like synchronous code. Under the hood it's still Promises — `await` just pauses the function until the Promise resolves, and `async` makes the function return a Promise automatically. This is the preferred way to write async code in modern TypeScript:
 
 ```typescript
 // With Promises
@@ -229,9 +229,11 @@ async function main() {
 
 ## 5. Promise Static Methods
 
+These static methods on the `Promise` class are tools for coordinating multiple async operations. Choosing the right one depends on whether you need all results, just the first, or want to handle failures gracefully.
+
 ### Promise.all()
 
-Wait for all promises to resolve (fails fast on first rejection):
+Use this when you have multiple independent operations and need all of them to succeed. It runs them in parallel and returns all results at once. If any single promise rejects, the whole thing fails immediately — this "fail fast" behavior is useful when all results are required:
 
 ```typescript
 const urls = ["/api/users", "/api/posts", "/api/comments"];
@@ -254,7 +256,7 @@ async function getDashboardData() {
 
 ### Promise.allSettled()
 
-Wait for all promises, regardless of success/failure:
+Unlike `Promise.all()`, this waits for every promise to finish regardless of whether they succeed or fail. Use it when you want to attempt multiple operations and handle each result individually — for example, sending notifications to multiple users where some might fail but you still want to process the rest:
 
 ```typescript
 const results = await Promise.allSettled([
@@ -274,7 +276,7 @@ results.forEach((result, i) => {
 
 ### Promise.race()
 
-First promise to settle wins:
+Returns the result of whichever promise settles first (whether it fulfills or rejects). The classic use case is implementing timeouts — race your actual operation against a timer:
 
 ```typescript
 // Timeout pattern
@@ -292,9 +294,49 @@ async function fetchWithTimeout<T>(
 const data = await fetchWithTimeout(fetch("/api/slow"), 5000);
 ```
 
+### Step by step: Promise.all vs Promise.allSettled
+
+```typescript
+// Imagine you're sending notifications to 3 users.
+// Some might fail — how do you want to handle that?
+
+const notifications = [
+  sendEmail("alice@test.com"),   // ✅ succeeds
+  sendEmail("bad-address"),       // ❌ fails
+  sendEmail("bob@test.com"),     // ✅ succeeds
+];
+
+// --- Promise.all: fails fast ---
+// If ANY promise rejects, the whole thing rejects immediately.
+// You don't get the successful results at all.
+try {
+  const results = await Promise.all(notifications);
+  // ❌ Never reaches here because one failed
+} catch (error) {
+  // error is from "bad-address" — but what about Alice and Bob?
+  // You don't know if they succeeded or not.
+}
+
+// --- Promise.allSettled: waits for everything ---
+// Every promise runs to completion. You get a status for each one.
+const results = await Promise.allSettled(notifications);
+// results is:
+// [
+//   { status: "fulfilled", value: "sent to alice" },
+//   { status: "rejected",  reason: Error("invalid address") },
+//   { status: "fulfilled", value: "sent to bob" },
+// ]
+
+// Now you can handle each result individually:
+const failed = results.filter(r => r.status === "rejected");
+console.log(`${failed.length} notifications failed`);
+// Use Promise.all when ALL must succeed (loading a dashboard).
+// Use Promise.allSettled when you want to try everything and handle failures individually.
+```
+
 ### Promise.any()
 
-First promise to fulfill wins (ignores rejections until all fail):
+Similar to `race()`, but only cares about the first success — it ignores rejections unless every promise fails. This is great for redundancy patterns where you try multiple sources and use whichever responds first:
 
 ```typescript
 // Try multiple sources, use first success
@@ -311,6 +353,8 @@ const data = await Promise.any([
 ## 6. Common Patterns
 
 ### Sequential vs Parallel
+
+One of the most common async mistakes is accidentally running things sequentially when they could run in parallel. If two operations don't depend on each other, run them at the same time with `Promise.all()`. This can dramatically reduce total wait time:
 
 ```typescript
 // ❌ Sequential (slow) - each waits for previous
@@ -343,6 +387,8 @@ async function mixed() {
 
 ### Retry Pattern
 
+Network requests fail. Servers go down temporarily. The retry pattern handles transient failures by attempting the operation multiple times with a delay between attempts. This is especially common when calling external APIs or services that might have brief outages:
+
 ```typescript
 async function fetchWithRetry<T>(
   fn: () => Promise<T>,
@@ -367,6 +413,58 @@ function sleep(ms: number): Promise<void> {
 
 // Usage
 const data = await fetchWithRetry(() => fetch("/api/flaky"));
+```
+
+### Step by step: async/await with error handling
+
+```typescript
+// Let's trace through a real async flow step by step.
+
+async function getUserOrders(userId: string) {
+  // 1. Start an async function — it always returns a Promise.
+  //    The caller gets a Promise<Order[]> back immediately.
+
+  try {
+    // 2. `await` pauses THIS function (not the whole program)
+    //    until the fetch completes. Other code keeps running.
+    const response = await fetch(`/api/users/${userId}/orders`);
+
+    // 3. We're back. `response` is now a real Response object.
+    //    But the body hasn't been read yet — that's also async.
+    if (!response.ok) {
+      // 4. We throw manually for HTTP errors (fetch doesn't throw on 404/500).
+      //    This jumps straight to the catch block below.
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    // 5. Another await — pause again while the JSON body is parsed.
+    const orders = await response.json();
+
+    // 6. Return the data. Since we're in an async function,
+    //    this actually resolves the Promise the caller is waiting on.
+    return orders;
+
+  } catch (error) {
+    // 7. Catches BOTH network failures (fetch threw)
+    //    AND our manual throw from step 4.
+    //    Also catches JSON parse errors from step 5.
+    console.error("Failed to get orders:", error);
+
+    // 8. Re-throw so the caller knows it failed.
+    //    Without this, the function would return undefined.
+    throw error;
+  }
+}
+
+// Calling it:
+try {
+  const orders = await getUserOrders("123");
+  //    ↑ pauses here until the whole function resolves
+  console.log(orders);
+} catch (error) {
+  // Handles the re-thrown error from step 8
+  showErrorMessage("Could not load orders");
+}
 ```
 
 ### Debounce and Throttle

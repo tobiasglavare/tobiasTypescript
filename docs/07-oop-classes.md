@@ -1,6 +1,6 @@
 # Chapter 7: OOP & Classes
 
-This document covers object-oriented programming in TypeScript — classes, inheritance, and access modifiers.
+This document covers object-oriented programming in TypeScript — classes, inheritance, and access modifiers. Classes give you a way to bundle data and the methods that operate on that data into a single unit. They're not always the right tool (functions are often simpler), but when you need to manage state, model real-world entities, or build extensible systems, classes shine.
 
 ---
 
@@ -48,7 +48,7 @@ console.log(bob.name);  // "Bob"
 
 ## 2. Access Modifiers
 
-Control property/method visibility:
+Access modifiers control who can see and change your class's properties and methods. This is about protecting your data — if `balance` on a bank account is public, any code anywhere can set it to whatever it wants. By making it private, you force all changes to go through methods you control (like `deposit` and `withdraw`), where you can add validation and logging.
 
 ### public (default)
 
@@ -154,8 +154,7 @@ console.log(counter.#count);  // ❌ Syntax error
 
 ## 3. Getters and Setters
 
-```typescript
-class Circle {
+Getters and setters let you expose properties with controlled access. A getter lets you compute a value on the fly (like `area` from `radius`), and a setter lets you add validation when a value is changed. From the outside they look like regular properties — `circle.radius = 10` — but behind the scenes your code runs:
   private _radius: number;
   
   constructor(radius: number) {
@@ -193,7 +192,7 @@ circle.radius = -1;          // Throws error
 
 ## 4. Static Members
 
-Belong to the class itself, not instances:
+Static members belong to the class itself, not to any instance. Use them for utility methods that don't need instance data (like `MathUtils.square()`), constants shared across all instances, or factory methods that create instances in specific ways. The key idea: you call them on the class name, not on an object:
 
 ```typescript
 class MathUtils {
@@ -242,8 +241,7 @@ const user = User.create("Alice", "alice@example.com");
 
 ## 5. Inheritance
 
-```typescript
-class Animal {
+Inheritance lets you create a new class based on an existing one. The child class gets all the parent's properties and methods, and can add its own or override existing ones. This avoids duplicating code — if `Dog` and `Cat` both need a `name` and a `move()` method, put those in a shared `Animal` parent class:
   constructor(public name: string) {}
   
   move(distance: number): void {
@@ -277,7 +275,7 @@ dog.move(10);   // "Running..." then "Buddy moved 10m"
 
 ## 6. Abstract Classes
 
-Cannot be instantiated directly — must be extended:
+Abstract classes are like blueprints — they define a structure that subclasses must follow, but can't be used directly. They're useful when you have shared logic (like `describe()`) but some parts must be different for each subclass (like `getArea()`). The `abstract` keyword forces subclasses to implement those parts, so you can't accidentally forget:
 
 ```typescript
 abstract class Shape {
@@ -321,12 +319,64 @@ const circle = new Circle("red", 5);
 console.log(circle.describe());  // "A red shape with area 78.54..."
 ```
 
+### Step by step: abstract classes
+
+```typescript
+// Let's trace how abstract classes, super(), and method calls work together.
+
+abstract class Vehicle {
+  // The constructor can be called by subclasses via super().
+  constructor(public make: string, public year: number) {}
+
+  // Abstract method: no implementation here.
+  // Every subclass MUST provide its own version.
+  abstract fuelType(): string;
+
+  // Concrete method: has an implementation that subclasses inherit.
+  // Notice it calls the abstract method — this works because
+  // by the time this runs, we'll have a real subclass instance.
+  summary(): string {
+    return `${this.year} ${this.make} (${this.fuelType()})`;
+  }
+}
+
+class ElectricCar extends Vehicle {
+  constructor(make: string, year: number, public range: number) {
+    // super() calls the parent constructor.
+    // MUST be called before using `this` in the constructor.
+    super(make, year);
+    // Now `this.make` and `this.year` are set by the parent,
+    // and `this.range` is set by this class.
+  }
+
+  // Implementing the abstract method — required, or TypeScript errors.
+  fuelType(): string {
+    return "electric";
+  }
+}
+
+// const v = new Vehicle("Toyota", 2024);  ❌ Can't instantiate abstract class
+
+const car = new ElectricCar("Tesla", 2024, 350);
+
+car.summary();
+// 1. Calls Vehicle.summary() (inherited concrete method)
+// 2. Inside summary(), this.fuelType() is called
+// 3. Since `car` is an ElectricCar, it calls ElectricCar.fuelType()
+// 4. Returns "electric"
+// 5. summary() returns "2024 Tesla (electric)"
+
+// This is polymorphism: the parent class defines the structure,
+// but the subclass controls the behavior. The parent's summary()
+// doesn't know or care which subclass it's in — it just calls
+// fuelType() and trusts that the subclass implemented it.
+```
+
 ---
 
 ## 7. Implementing Interfaces
 
-```typescript
-interface Printable {
+Interfaces define a contract — "any class that implements this interface must have these methods and properties." Unlike abstract classes, a class can implement multiple interfaces. Use interfaces when you care about what something can do, not what it is. This is the foundation of dependency injection and testable code — you can swap implementations without changing the code that uses them:
   print(): void;
 }
 
@@ -383,8 +433,7 @@ abstract class BaseLogger implements Logger {
 
 ## 8. Generic Classes
 
-```typescript
-class Stack<T> {
+Combining generics with classes gives you reusable data structures that are fully type-safe. A `Stack<number>` only accepts numbers, a `Stack<string>` only accepts strings — but you write the implementation once. This is how most collection classes and repositories are built in real applications:
   private items: T[] = [];
   
   push(item: T): void {

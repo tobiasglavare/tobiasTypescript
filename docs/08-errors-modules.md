@@ -1,6 +1,6 @@
 # Chapter 8: Error Handling & Modules
 
-This document covers error handling patterns and module organization in TypeScript.
+This document covers error handling patterns and module organization in TypeScript. Good error handling is the difference between an app that crashes mysteriously and one that fails gracefully with useful information. And modules are how you organize code so it doesn't become an unmanageable mess as your project grows.
 
 ---
 
@@ -39,8 +39,7 @@ throw new SyntaxError("Invalid syntax");
 
 ## 2. try/catch/finally
 
-```typescript
-function parseJSON(json: string): unknown {
+`try/catch` is how you handle errors at runtime. Wrap risky code in `try`, handle failures in `catch`, and use `finally` for cleanup that must run regardless (closing connections, releasing resources). One important TypeScript detail: the `error` in `catch` is typed as `unknown` by default, so you need to narrow it before using it:
   try {
     return JSON.parse(json);
   } catch (error) {
@@ -91,8 +90,7 @@ function processData(data: string): Result {
 
 ## 3. Custom Error Classes
 
-```typescript
-// Basic custom error
+Built-in errors like `Error` and `TypeError` are generic — they only carry a message. In a real application, you want errors that carry structured information: an HTTP status code, an error code your frontend can switch on, which field failed validation. Custom error classes let you create a hierarchy of errors that are easy to catch and handle specifically:
 class ValidationError extends Error {
   constructor(message: string) {
     super(message);
@@ -176,7 +174,7 @@ throw new ValidationError("Email is required", "email");
 
 ## 4. Result Type Pattern
 
-Avoid exceptions for expected failures:
+Exceptions are great for unexpected failures (network down, disk full), but for expected failures (invalid input, item not found), they can be overkill. The Result type pattern makes failure an explicit part of your function's return type — the caller can see at a glance that this function might fail, and TypeScript forces them to handle both cases. No more forgotten try/catch blocks:
 
 ```typescript
 // Result type definition
@@ -219,6 +217,67 @@ if (result.ok) {
 } else {
   console.error(`Error at line ${result.error.line}: ${result.error.message}`);
 }
+```
+
+### Step by step: Result type
+
+```typescript
+// The Result type is a discriminated union — just like the ones in chapter 6.
+// The `ok` property is the discriminant (tag).
+
+type Result<T, E = Error> =
+  | { ok: true; value: T }     // success variant — carries the data
+  | { ok: false; error: E };   // failure variant — carries the error
+
+// Helper functions to create Results cleanly:
+function ok<T>(value: T): Result<T, never> {
+  return { ok: true, value };
+}
+function err<E>(error: E): Result<never, E> {
+  return { ok: false, error };
+}
+
+// Now let's use it in a real function:
+function parsePort(input: string): Result<number, string> {
+  //                                       ↑        ↑
+  //                              success type   error type
+
+  const port = parseInt(input, 10);
+
+  if (isNaN(port)) {
+    return err(`"${input}" is not a number`);
+    // Returns { ok: false, error: '"abc" is not a number' }
+  }
+
+  if (port < 1 || port > 65535) {
+    return err(`Port ${port} is out of range (1-65535)`);
+    // Returns { ok: false, error: 'Port 99999 is out of range (1-65535)' }
+  }
+
+  return ok(port);
+  // Returns { ok: true, value: 3000 }
+}
+
+// The caller MUST handle both cases — TypeScript enforces it:
+const result = parsePort("3000");
+
+if (result.ok) {
+  // TypeScript narrows to { ok: true; value: number }
+  // result.value is number ✅
+  startServer(result.value);
+  // result.error  ❌ doesn't exist on this variant
+} else {
+  // TypeScript narrows to { ok: false; error: string }
+  // result.error is string ✅
+  console.error(result.error);
+  // result.value  ❌ doesn't exist on this variant
+}
+
+// Compare with exceptions:
+// - With try/catch, nothing in the function signature tells you it can fail.
+// - With Result, the return type makes failure explicit.
+// - The caller can't accidentally forget to handle the error —
+//   they have to check `ok` before they can access `value`.
 ```
 
 ### Result utilities
@@ -304,6 +363,8 @@ async function fetchUserSafe(id: string): Promise<Result<User, ApiError>> {
 
 ## 6. ES Modules Basics
 
+Modules are how you split code into separate files and control what's visible to other files. Without modules, everything lives in a global scope and name collisions are inevitable. With modules, each file is its own scope — you explicitly `export` what you want to share and `import` what you need. This is the standard module system in modern JavaScript and TypeScript.
+
 ### Exporting
 
 ```typescript
@@ -374,9 +435,7 @@ import "./polyfills";
 
 ## 7. Module Organization
 
-### Barrel files (index.ts)
-
-Re-export from a single entry point:
+As projects grow, you need a strategy for organizing files. Barrel files (`index.ts`) are a common pattern — they re-export from multiple files so consumers can import from a single path instead of knowing the internal file structure. This keeps your imports clean and lets you reorganize internals without breaking consumers:
 
 ```typescript
 // utils/string.ts
@@ -428,7 +487,7 @@ src/
 
 ## 8. Type-Only Imports/Exports
 
-Import types without runtime overhead:
+When you import an interface or type alias, it only exists at compile time — there's nothing to import at runtime. Type-only imports make this explicit with `import type`. This isn't just cosmetic — it helps bundlers tree-shake better and prevents accidental runtime dependencies on files that only contain types:
 
 ```typescript
 // types.ts

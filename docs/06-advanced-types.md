@@ -1,12 +1,12 @@
 # Chapter 6: Advanced Types
 
-This document covers union types, type guards, discriminated unions, and type narrowing.
+This document covers union types, type guards, discriminated unions, and type narrowing. These features are what make TypeScript's type system truly powerful — they let you model real-world data that can take different shapes, and write code that handles each shape safely.
 
 ---
 
 ## 1. Union Types
 
-A value that can be one of several types:
+In the real world, data isn't always one type. A function might accept a string or a number. An API response might be a success object or an error object. Union types let you express this — a value that can be one of several types. TypeScript then makes sure you handle all the possibilities:
 
 ```typescript
 // Basic union
@@ -41,7 +41,7 @@ function printId(id: string | number) {
 
 ## 2. Type Narrowing
 
-TypeScript tracks type information through control flow:
+When you have a union type, TypeScript doesn't know which variant you're dealing with. Type narrowing is how you tell it — through runtime checks like `typeof`, `instanceof`, or `in`. TypeScript is smart enough to track these checks through your control flow and automatically narrow the type in each branch:
 
 ### typeof narrowing
 
@@ -114,7 +114,7 @@ function logDate(date: Date | string) {
 
 ## 3. Type Guards
 
-Custom functions that narrow types:
+Sometimes the built-in narrowing (`typeof`, `instanceof`, `in`) isn't enough — maybe you need to check if an unknown API response matches a specific interface, or validate complex data shapes. Type guards are custom functions that tell TypeScript "if this function returns true, the value is this type." The magic is in the return type annotation `value is SomeType`:
 
 ### Type predicates
 
@@ -149,6 +149,41 @@ function isUser(obj: unknown): obj is User {
 }
 ```
 
+### Step by step: type guards
+
+```typescript
+// A type guard is a function that returns a boolean,
+// but with a special return type that tells TypeScript
+// "if this returns true, the value is this specific type."
+
+function isString(value: unknown): value is string {
+  //                                ^^^^^^^^^^^^^^^^
+  //                                This is the type predicate.
+  //                                It says: "when this function returns true,
+  //                                treat `value` as a string from now on."
+  return typeof value === "string";
+}
+
+// Why does this matter? Watch what happens:
+function processInput(input: unknown) {
+  // Here, `input` is unknown — you can't do anything with it.
+  // input.toUpperCase()  ❌ Error: Object is of type 'unknown'
+
+  if (isString(input)) {
+    // TypeScript reads the type predicate and narrows `input` to string.
+    // Now you get full autocomplete and type checking:
+    console.log(input.toUpperCase());  // ✅ TypeScript knows it's a string
+    console.log(input.length);         // ✅ Also works
+  }
+
+  // Outside the if block, `input` is back to unknown.
+}
+
+// Without the "value is string" return type, the function would just
+// return boolean, and TypeScript wouldn't narrow anything.
+// The type predicate is what connects the runtime check to the type system.
+```
+
 ### Assertion functions
 
 ```typescript
@@ -176,7 +211,7 @@ function assertDefined<T>(value: T | null | undefined): asserts value is T {
 
 ## 4. Discriminated Unions
 
-Unions with a common "tag" property for easy narrowing:
+This is one of the most useful patterns in TypeScript. When you have a union of object types, give each variant a common property (a "tag" or "discriminant") with a unique literal value. TypeScript can then use a simple `switch` or `if` on that property to know exactly which variant you have. This pattern shows up everywhere — API responses, Redux actions, state machines:
 
 ```typescript
 // Each type has a unique "type" property
@@ -199,6 +234,8 @@ function getArea(shape: Shape): number {
 
 ### Exhaustiveness checking
 
+The `never` type is TypeScript's way of saying "this should be impossible." By assigning to `never` in the default case, you create a compile-time safety net: if someone adds a new shape variant but forgets to handle it in the switch, TypeScript will error because the new variant can't be assigned to `never`:
+
 ```typescript
 function getArea(shape: Shape): number {
   switch (shape.type) {
@@ -217,6 +254,47 @@ function getArea(shape: Shape): number {
 
 // If you add a new shape type and forget to handle it,
 // TypeScript will error on the never assignment
+```
+
+### Step by step: discriminated unions
+
+```typescript
+// Let's trace how TypeScript narrows a discriminated union.
+
+type ApiResponse =
+  | { status: "loading" }                          // variant 1
+  | { status: "success"; data: string }            // variant 2
+  | { status: "error"; error: string; code: number }  // variant 3
+
+function handleResponse(response: ApiResponse): string {
+  // At this point, `response` could be any of the 3 variants.
+  // You can only access `status` — it's the only common property.
+
+  switch (response.status) {
+    case "loading":
+      // TypeScript narrows: response is { status: "loading" }
+      // No `data` or `error` properties exist here.
+      return "Please wait...";
+
+    case "success":
+      // TypeScript narrows: response is { status: "success"; data: string }
+      // Now `response.data` is available and typed as string.
+      return `Got: ${response.data}`;
+      // response.error  ❌ doesn't exist on this variant
+
+    case "error":
+      // TypeScript narrows: response is { status: "error"; error: string; code: number }
+      // Both `error` and `code` are available.
+      return `Error ${response.code}: ${response.error}`;
+      // response.data  ❌ doesn't exist on this variant
+  }
+}
+
+// The key insight: the `status` property is the discriminant.
+// Each variant has a unique literal value for `status`,
+// so TypeScript can use a simple string comparison to know
+// exactly which variant you're dealing with.
+// This is why it's called a "discriminated" union.
 ```
 
 
@@ -261,7 +339,7 @@ function reducer(state: number, action: Action): number {
 
 ## 5. Intersection Types
 
-Combine multiple types into one:
+While unions say "this OR that," intersections say "this AND that." They combine multiple types into one that has all the properties of each. This is useful for composing types from smaller, reusable pieces — like building a `Person` from `HasName`, `HasAge`, and `HasEmail`:
 
 ```typescript
 type HasName = { name: string };
@@ -306,7 +384,11 @@ const logger: LoggerWithFormatter = {
 
 ## 6. keyof and Indexed Access Types
 
+These two features let you write types that reference other types dynamically. `keyof` gives you a union of all property names, and indexed access (`Type["key"]`) gives you the type of a specific property. Together they're the foundation for writing generic functions that are truly type-safe — like a `getProperty` function that knows the return type based on which key you pass in.
+
 ### keyof operator
+
+`keyof` takes an object type and produces a union of its keys. This is useful for constraining function parameters to only accept valid property names:
 
 ```typescript
 interface Person {
@@ -357,7 +439,7 @@ type User = typeof users[number];
 
 ## 7. Mapped Types
 
-Transform properties of a type:
+Mapped types let you create new types by transforming every property of an existing type. Think of them as a `map()` function but for types — iterate over each property and apply a transformation. This is how TypeScript's built-in `Partial`, `Required`, and `Readonly` utility types work under the hood:
 
 ```typescript
 // Make all properties optional
@@ -412,7 +494,7 @@ type PersonGetters = Getters<Person>;
 
 ## 8. Conditional Types
 
-Types that depend on conditions:
+Conditional types let you express "if this type extends that type, use X, otherwise use Y." They're like ternary expressions but at the type level. This is an advanced feature — you won't need it daily, but it's the mechanism behind many utility types like `ReturnType` and `Extract`:
 
 ```typescript
 // Basic conditional type
@@ -472,7 +554,7 @@ type FirstParam<T> = T extends (first: infer F, ...rest: any[]) => any ? F : nev
 
 ## 9. Template Literal Types
 
-String manipulation at the type level:
+TypeScript can manipulate string types the same way you manipulate strings at runtime. Template literal types let you construct string types from other types using template syntax. This is powerful for creating type-safe APIs around string-based conventions — like event names, CSS class names, or route patterns:
 
 ```typescript
 // Basic template literal type

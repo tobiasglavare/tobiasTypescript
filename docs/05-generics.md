@@ -6,7 +6,7 @@ This document covers TypeScript generics — writing reusable, type-safe code.
 
 ## 1. What Are Generics?
 
-Generics let you write code that works with multiple types while maintaining type safety:
+Imagine you write a function that returns the first element of an array. Without generics, you'd either have to write separate versions for `string[]`, `number[]`, etc., or use `any` and lose all type safety. Generics solve this by letting you write one function that works with any type while still knowing exactly what type you're dealing with:
 
 ```typescript
 // Without generics: lose type information
@@ -149,7 +149,7 @@ type Callback<T> = (error: Error | null, result?: T) => void;
 
 ## 4. Generic Constraints
 
-Limit what types can be used with `extends`:
+Without constraints, a generic type `T` could be anything — a string, a number, an object, undefined. Sometimes you need to guarantee that `T` has certain properties. Constraints with `extends` let you say "T can be any type, as long as it has these features." This gives you the flexibility of generics with the safety of knowing what you can do with the value:
 
 ```typescript
 // Must have a length property
@@ -192,13 +192,48 @@ getProperty(person, "age");   // number
 getProperty(person, "email"); // ❌ Error: "email" not in keyof person
 ```
 
+### Step by step: keyof constraint
+
+```typescript
+// Let's trace what TypeScript does with this generic function:
+
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+// When you call it:
+const server = { host: "localhost", port: 3000, env: "prod" };
+const host = getProperty(server, "host");
+
+// Here's what TypeScript figures out:
+// 1. T is inferred as { host: string; port: number; env: string }
+//    (from the `server` argument)
+//
+// 2. keyof T becomes "host" | "port" | "env"
+//    (the union of all property names)
+//
+// 3. K extends keyof T means K must be one of those three strings.
+//    We passed "host", so K = "host" ✅
+//
+// 4. The return type T[K] becomes T["host"] which is string.
+//    So `host` is typed as string — not string | number | string.
+//
+// 5. If you tried getProperty(server, "missing"):
+//    K would be "missing", which doesn't extend "host" | "port" | "env"
+//    → TypeScript error at compile time. You can't access a key that doesn't exist.
+
+// This is why the pattern is so useful: the return type changes
+// based on which key you pass in. TypeScript tracks it all for you.
+const port = getProperty(server, "port");   // number (not string | number)
+const env = getProperty(server, "env");     // string
+```
+
 
 ---
 
 ## 5. Generic Classes
 
-```typescript
-class Stack<T> {
+Generics aren't just for functions — classes benefit from them too. A generic class lets you build reusable data structures (like stacks, queues, repositories) that work with any type while keeping full type safety. You define the type when you create an instance, and every method on that instance knows the exact type it's working with:
   private items: T[] = [];
   
   push(item: T): void {
@@ -267,8 +302,7 @@ userRepo.add({ id: "1", name: "Alice", email: "alice@example.com" });
 
 ## 6. Default Type Parameters
 
-```typescript
-// Default type parameter
+Sometimes a generic type has a "most common" case. Default type parameters let you provide a fallback type so callers don't have to specify it every time. It works just like default function parameters — use the default when no type is given, override it when you need something specific:
 interface ApiResponse<T = unknown> {
   data: T;
   status: number;
@@ -295,10 +329,10 @@ const c3: Container<boolean, string> = { value: true, count: "many" };
 
 ## 7. Built-in Utility Types
 
-TypeScript provides many generic utility types:
+TypeScript ships with a set of generic utility types that handle common type transformations. Rather than manually rewriting types, these let you derive new types from existing ones. They're used constantly in real codebases — knowing them saves a lot of boilerplate:
 
 ### `Partial<T>`
-Make all properties optional:
+Makes all properties optional. This is extremely useful for update functions where you only want to change some fields — you don't want to require every property just to update one:
 
 ```typescript
 interface User {
@@ -348,7 +382,7 @@ user.name = "Bob";  // ❌ Error: Cannot assign to 'name'
 ```
 
 ### `Pick<T, K>`
-Select specific properties:
+Creates a new type with only the specified properties. Useful when you want to expose a subset of an object — like returning user data without sensitive fields:
 
 ```typescript
 interface User {
@@ -363,7 +397,7 @@ type PublicUser = Pick<User, "id" | "name" | "email">;
 ```
 
 ### `Omit<T, K>`
-Remove specific properties:
+The opposite of `Pick` — creates a type with everything except the specified properties. Often more convenient when you want to remove just one or two fields:
 
 ```typescript
 type PublicUser = Omit<User, "password">;
@@ -375,7 +409,7 @@ type UserWithoutId = Omit<User, "id" | "password">;
 
 
 ### `Record<K, V>`
-Create object type with specific keys and value type:
+Creates an object type where all keys are of type `K` and all values are of type `V`. Handy for lookup tables, dictionaries, and any time you need a typed key-value mapping:
 
 ```typescript
 type UserRoles = Record<string, boolean>;
