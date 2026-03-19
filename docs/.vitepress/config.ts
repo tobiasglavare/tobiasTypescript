@@ -8,6 +8,7 @@ export default defineConfig({
   ],
   description: 'A structured plan to master TypeScript',
   themeConfig: {
+    logo: '/logo.svg',
     nav: [
       { text: 'Home', link: '/' }
     ],

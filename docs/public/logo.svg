@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 180">
+  <!-- Castle silhouette -->
+  <g fill="#3178c6">
+    <!-- Left tower -->
+    <rect x="15" y="50" width="30" height="100" rx="2"/>
+    <rect x="10" y="40" width="40" height="15" rx="1"/>
+    <!-- Left tower battlements -->
+    <rect x="10" y="28" width="8" height="16"/>
+    <rect x="26" y="28" width="8" height="16"/>
+    <rect x="42" y="28" width="8" height="16"/>
+
+    <!-- Right tower -->
+    <rect x="155" y="50" width="30" height="100" rx="2"/>
+    <rect x="150" y="40" width="40" height="15" rx="1"/>
+    <!-- Right tower battlements -->
+    <rect x="150" y="28" width="8" height="16"/>
+    <rect x="166" y="28" width="8" height="16"/>
+    <rect x="182" y="28" width="8" height="16"/>
+
+    <!-- Center tower (taller) -->
+    <rect x="75" y="30" width="50" height="120" rx="2"/>
+    <rect x="68" y="18" width="64" height="17" rx="1"/>
+    <!-- Center battlements -->
+    <rect x="68" y="4" width="10" height="18"/>
+    <rect x="86" y="4" width="10" height="18"/>
+    <rect x="104" y="4" width="10" height="18"/>
+    <rect x="122" y="4" width="10" height="18"/>
+
+    <!-- Connecting walls -->
+    <rect x="45" y="80" width="30" height="70" rx="1"/>
+    <rect x="125" y="80" width="30" height="70" rx="1"/>
+
+    <!-- Wall battlements left -->
+    <rect x="45" y="70" width="8" height="14"/>
+    <rect x="57" y="70" width="8" height="14"/>
+    <rect x="69" y="70" width="6" height="14"/>
+
+    <!-- Wall battlements right -->
+    <rect x="125" y="70" width="6" height="14"/>
+    <rect x="135" y="70" width="8" height="14"/>
+    <rect x="147" y="70" width="8" height="14"/>
+
+    <!-- Gate arch -->
+    <rect x="88" y="110" width="24" height="40" rx="12" fill="#1a1a2e"/>
+
+    <!-- Windows -->
+    <rect x="92" y="55" width="16" height="20" rx="8" fill="#1a1a2e"/>
+    <rect x="24" y="70" width="12" height="16" rx="6" fill="#1a1a2e"/>
+    <rect x="164" y="70" width="12" height="16" rx="6" fill="#1a1a2e"/>
+  </g>
+
+  <!-- TS text below -->
+  <text x="100" y="172" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="22" fill="#3178c6" letter-spacing="2">TS JOURNEY</text>
+</svg>
