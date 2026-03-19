@@ -1,4 +1,5 @@
 import DefaultTheme from 'vitepress/theme'
+import './custom.css'
 // @ts-ignore
 import ProgressTracker from './ProgressTracker.vue'
 import type { Theme } from 'vitepress'
